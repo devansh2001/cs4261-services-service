@@ -1,0 +1,5 @@
+brew tap heroku/brew && brew install heroku
+docker build -t services-service .
+hero container:login
+postgres://mcvwodrvbmtrfr:e607b5ffce4827b53fd7e7c40254c0f894189fa73314a1b98aae8881822addff@ec2-107-20-24-247.compute-1.amazonaws.com:5432/d6t1raa6o61289
+curl -XGET <url>/health-check

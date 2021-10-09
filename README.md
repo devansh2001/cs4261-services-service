@@ -10,7 +10,7 @@
 All are from : https://www.youtube.com/watch?v=4eQqcfQIWXw
 
 Tagging Docker image
-```docker tag user-service registry.heroku.com/cs4261-services-service/web```
+```docker tag services-service registry.heroku.com/cs4261-services-service/web```
 
 Pushing docker image to heroku 
 ```docker push registry.heroku.com/cs4261-services-service/web```
