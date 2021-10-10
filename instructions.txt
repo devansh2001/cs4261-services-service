@@ -1,5 +1,23 @@
+Intall Heroku:
 brew tap heroku/brew && brew install heroku
-docker build -t services-service .
+
+Login to Heroku:
 hero container:login
-postgres://mcvwodrvbmtrfr:e607b5ffce4827b53fd7e7c40254c0f894189fa73314a1b98aae8881822addff@ec2-107-20-24-247.compute-1.amazonaws.com:5432/d6t1raa6o61289
+
+Build the Docker Service: (In the directory with the Docker file)
+docker build -t services-service .
+
+Heroku Deployment
+docker tag services-service registry.heroku.com/cs4261-services-service/web
+docker push registry.heroku.com/cs4261-services-service/web
+eroku container:release web -a cs4261-services-service
+
+Docker Logs:
+heroku logs --tail --app cs4261-services-service
+
+Environment Variable:
+Key: DATABASE_URL
+Value: postgres://mcvwodrvbmtrfr:e607b5ffce4827b53fd7e7c40254c0f894189fa73314a1b98aae8881822addff@ec2-107-20-24-247.compute-1.amazonaws.com:5432/d6t1raa6o61289
+
+Testing Commands
 curl -XGET <url>/health-check
