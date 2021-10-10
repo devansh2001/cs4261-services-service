@@ -47,22 +47,18 @@ def create_service():
         INSERT INTO services (service_id, service_name, service_description, service_category)
         VALUES (%s, %s, %s, %s)
     '''
-
     cursor.execute(query, [service_id, service_name, service_description, service_category])
-    
     return {'status': 201, 'service_id': service_id}
 
-@app.route('/get-service/<service_id>')
-def get_service(service_id):
+@app.route('/get-service/<user_id>')
+def get_service(user_id):
     query = '''
-        SELECT * FROM services where services.service_id=%s
+        SELECT service_id, service_name, service_description, service_category FROM services, users where users.user_id=%s
     '''
-
-    cursor.execute(query, [str(service_id)])
+    cursor.execute(query, [str(user_id)])
     res = cursor.fetchall()
     if (len(res) == 0):
         return {'status': 200, 'service': None}
-
     service = {
         'service_id': res[0][0],
         'service_name': res[0][1],
