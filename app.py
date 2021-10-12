@@ -49,6 +49,7 @@ def create_service():
         VALUES (%s, %s, %s, %s)
     '''
     cursor.execute(query, [service_id, service_name, service_description, service_category])
+    conn.commit()
     return {'status': 201, 'service_id': service_id}
 
 @app.route('/get-service/<service_id>')
@@ -74,6 +75,7 @@ def delete_service(service_id):
         DELETE FROM services WHERE services.service_id=%s
     '''
     cursor.execute(query, [str(service_id)])
+    conn.commit()
     return {'status': 200}
 
 # https://www.youtube.com/watch?v=4eQqcfQIWXw
