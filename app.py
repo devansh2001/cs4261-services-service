@@ -55,7 +55,7 @@ def create_service():
 @app.route('/get-service/<service_id>')
 def get_service(service_id):
     query = '''
-        SELECT service_id, service_name, service_description, service_category FROM services where services.service_id=%s
+        SELECT service_id, service_name, service_description, service_category FROM services WHERE services.service_id=%s
     '''
     cursor.execute(query, [str(service_id)])
     res = cursor.fetchall()
