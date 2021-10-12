@@ -4,9 +4,11 @@ import os
 import psycopg2
 import uuid
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+# https://stackoverflow.com/a/64657739
+CORS(app, support_credentials=True)
 # https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-python
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -32,7 +34,7 @@ except psycopg2.Error:
 
 @app.route('/health-check')
 def health_check():
-    return {'status': 'OK', 'code': '200'}
+    return {'status': 200}
 
 @app.route('/create-services', methods=['POST'])
 def create_service():
