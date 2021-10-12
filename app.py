@@ -51,12 +51,12 @@ def create_service():
     cursor.execute(query, [service_id, service_name, service_description, service_category])
     return {'status': 201, 'service_id': service_id}
 
-@app.route('/get-service/<user_id>')
-def get_service(user_id):
+@app.route('/get-service/<service_id>')
+def get_service(service_id):
     query = '''
-        SELECT service_id, service_name, service_description, service_category FROM services, users where users.user_id=%s
+        SELECT service_id, service_name, service_description, service_category FROM services where services.service_id=%s
     '''
-    cursor.execute(query, [str(user_id)])
+    cursor.execute(query, [str(service_id)])
     res = cursor.fetchall()
     if (len(res) == 0):
         return {'status': 200, 'service': None}
