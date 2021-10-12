@@ -16,7 +16,6 @@ conn.autocommit = True
 
 cursor = conn.cursor()
 try:
-
     cursor.execute('''
         DROP TABLE IF EXISTS services;
     ''')
