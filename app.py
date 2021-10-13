@@ -19,9 +19,6 @@ conn.autocommit = True
 cursor = conn.cursor()
 try:
     cursor.execute('''
-        DROP TABLE IF EXISTS services;
-    ''')
-    cursor.execute('''
     CREATE TABLE IF NOT EXISTS services (
         service_id varchar(64) PRIMARY KEY,
         service_name varchar(256),
