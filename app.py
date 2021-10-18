@@ -4,6 +4,7 @@ import os
 import psycopg2
 import uuid
 import json
+import copy
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -65,6 +66,28 @@ def get_service(service_id):
         'service_category': res[0][3]
     }
     return {'status': 200, 'service': service}
+
+@app.route('/get-services-by-category/<service_category>')
+def get_services_by_category(service_category):
+    query = '''
+        SELECT service_id, service_name, service_description, service_category FROM services WHERE services.service_category=%s
+    '''
+    cursor.execute(query, [str(service_category)])
+    res = cursor.fetchall()
+    if (len(res) == 0):
+        return {'status': 200, 'service': None}
+    service_list = list()
+    service = dict()
+    for i in range(len(res)):
+        service = {
+            'service_id': res[i][0],
+            'service_name': res[i][1],
+            'service_description': res[i][2],
+            'service_category': res[i][3]
+        }
+        service_list.append(copy.deepcopy(service))
+        service.clear()
+    return {'status': 200, 'services': service_list}
 
 @app.route('/delete-service/<service_id>', methods=['DELETE'])
 def delete_service(service_id):
