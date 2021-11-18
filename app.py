@@ -67,6 +67,21 @@ def get_service(service_id):
     }
     return {'status': 200, 'service': service}
 
+@app.route('/get-all-service')
+def get_all_service():
+    query = '''
+        SELECT service_id, service_name FROM services
+    '''
+    cursor.execute(query, [])
+    res = cursor.fetchall()
+    if (len(res) == 0):
+        return {'status': 200, 'service': None}
+    service = {
+        'service_id': res[0][0],
+        'service_name': res[0][1]
+    }
+    return {'status': 200, 'service': service}
+
 @app.route('/get-services-by-category/<service_category>')
 def get_services_by_category(service_category):
     query = '''
