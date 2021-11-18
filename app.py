@@ -67,20 +67,25 @@ def get_service(service_id):
     }
     return {'status': 200, 'service': service}
 
-@app.route('/get-all-service')
-def get_all_service():
+@app.route('/get-all-services')
+def get_all_services():
     query = '''
         SELECT service_id, service_name FROM services
     '''
     cursor.execute(query, [])
     res = cursor.fetchall()
     if (len(res) == 0):
-        return {'status': 200, 'service': None}
-    service = {
-        'service_id': res[0][0],
-        'service_name': res[0][1]
-    }
-    return {'status': 200, 'service': service}
+        return {'status': 200, 'services': None}
+    service_list = list()
+    service = dict()
+    for i in range(len(res)):
+        service = {
+            'service_id': res[i][0],
+            'service_name': res[i][1]
+        }
+        service_list.append(copy.deepcopy(service))
+        service.clear()
+    return {'status': 200, 'services': service_list}
 
 @app.route('/get-services-by-category/<service_category>')
 def get_services_by_category(service_category):
