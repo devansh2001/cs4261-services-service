@@ -70,7 +70,7 @@ def get_service(service_id):
 @app.route('/get-all-services')
 def get_all_services():
     query = '''
-        SELECT service_id, service_name FROM services
+        SELECT service_id, service_name FROM services ORDER BY service_name ASC
     '''
     cursor.execute(query, [])
     res = cursor.fetchall()
